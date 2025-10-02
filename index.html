@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Index_Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <h1 id="welcomeMsg">Employee Payroll System</h1>
+    <br /><br /><br />
+
+    <div class="stats" id="stats">
+      <div><strong>Total Operations:</strong> <span id="totalOps">0</span></div>
+      <div><strong>Last Action:</strong> <span id="lastAction">None</span></div>
+    </div>
+
+    <div class="linksCss" style="text-align: center">
+      <a href="insert.html" data-action="Insert">Insert Employee</a><br />
+      <a href="delete.html" data-action="Delete">Delete Employee</a><br />
+      <a href="update.html" data-action="Update">Update Employee</a><br />
+      <a href="selectAll.html" data-action="View All">Select All Employee</a
+      ><br />
+      <a href="selectedRec.html" data-action="Search">Selected Employee</a
+      ><br />
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        // Fade in title
+        $("#welcomeMsg").animate({ opacity: 1 }, 1000);
+
+        // Animate stats
+        $("#stats").delay(500).animate({ opacity: 1 }, 800);
+
+        // Animate menu items one by one
+        $(".linksCss a").each(function (index) {
+          $(this)
+            .delay(200 * index)
+            .animate({ opacity: 1 }, 600);
+        });
+
+        // Hover effects
+        $(".linksCss a").hover(
+          function () {
+            $(this).css("box-shadow", "0 4px 8px rgba(0,0,0,0.3)");
+          },
+          function () {
+            $(this).css("box-shadow", "none");
+          }
+        );
+
+        // Track clicks and update stats
+        $(".linksCss a").click(function () {
+          var action = $(this).data("action");
+          var currentOps = parseInt($("#totalOps").text()) || 0;
+
+          // Update stats (in real app, this would be from server/localStorage)
+          $("#totalOps").text(currentOps + 1);
+          $("#lastAction").text(action);
+
+          // Highlight effect
+          $("#lastAction")
+            .parent()
+            .css("background", "#ffeb3b")
+            .animate({ backgroundColor: "#f0f0f0" }, 1000);
+        });
+
+        // Add smooth scroll effect for page
+        $("html, body").hide().fadeIn(1000);
+      });
+    </script>
+  </body>
+</html>
